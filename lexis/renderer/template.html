@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LEXIS — {{SUBJECT}}</title>
 <style>{{INLINE_CSS}}</style>
 </head>
@@ -18,56 +17,76 @@
   <span class="badge">{{PAGE_COUNT}} SRC · {{THREAT_LEVEL}}</span>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-bg"></div>
-    <div class="hero-fade"></div>
-    <div class="hero-kicker">LEXIS INTELLIGENCE DIGEST · {{GENERATED_AT}}</div>
-    <h1 class="hero-h1">{{SUBJECT}}</h1>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-v" id="h-pages">—</span><span class="stat-l">SOURCES</span></div>
-      <div class="stat"><span class="stat-v" id="h-hl">—</span><span class="stat-l">HIGHLIGHTS</span></div>
-      <div class="stat"><span class="stat-v" id="h-nodes">—</span><span class="stat-l">CONCEPTS</span></div>
-      <div class="stat"><span class="stat-v" id="h-edges">—</span><span class="stat-l">RELATIONS</span></div>
-      <span class="threat-badge tb-{{THREAT_LEVEL}}">{{THREAT_LEVEL}} THREAT</span>
+<div class="page">
+
+<!-- ═══ HERO PAGE ═══ -->
+<div class="hero-page panel">
+  <!-- Main splash panel -->
+  <div class="hero-main">
+    <div class="hero-img"></div>
+    <div class="speed-lines"></div>
+    <div class="hero-ink-grad"></div>
+    <div class="hero-text">
+      <div class="hero-kicker">LEXIS INTELLIGENCE DIGEST · {{GENERATED_AT}}</div>
+      <h1 class="hero-h1">
+        <span>{{SUBJECT}}</span>
+      </h1>
     </div>
   </div>
-  <div class="hero-right">
-    <img src="images/0xAC009p.jpeg" alt="">
+  <!-- Right column -->
+  <div>
+    <div class="hero-stats-panel panel">
+      <div class="hero-stats">
+        <div class="stat-box"><span class="stat-v" id="h-pages">—</span><span class="stat-l">Sources</span></div>
+        <div class="stat-box"><span class="stat-v" id="h-hl">—</span><span class="stat-l">Highlights</span></div>
+        <div class="stat-box"><span class="stat-v" id="h-nodes">—</span><span class="stat-l">Concepts</span></div>
+        <div class="stat-box"><span class="stat-v" id="h-edges">—</span><span class="stat-l">Relations</span></div>
+      </div>
+    </div>
+    <div class="hero-right-art">
+      <img src="images/0xAC009p.jpeg" alt="">
+      <div class="threat-stamp tb-{{THREAT_LEVEL}}">{{THREAT_LEVEL}} THREAT</div>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- CH 01 -->
-<div class="ch" id="s1">
-  <div class="ch-num">01</div>
-  <div class="ch-text">
+<!-- ═══ CH 01 ═══ -->
+<div class="ch-panel panel" id="s1">
+  <div class="ch-num-col"><div class="ch-num">01</div></div>
+  <div class="ch-title-col">
     <div class="ch-title">Annotated Source</div>
     <div class="ch-sub">ORIGINAL TEXT · AI-HIGHLIGHTED SPANS · HOVER FOR REASONING</div>
   </div>
-  <div class="ch-img"><img src="images/0xAC006p.jpeg" alt=""></div>
+  <div class="ch-art-col"><img src="images/0xAC006p.jpeg" alt=""></div>
 </div>
 
-<!-- SECTION 1 -->
-<div class="s1" id="s1-wrap">
-  <div class="s1-art">
+<!-- ═══ SECTION 1 ═══ -->
+<div class="panel">
+  <div class="s1-splash">
     <img src="images/0xAC003p.jpeg" alt="">
+    <div class="s1-splash-over">
+      <span class="s1-splash-num">01</span>
+      <div>
+        <div class="s1-splash-label">Annotated Source</div>
+        <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:rgba(26,21,23,.55)">HOVER HIGHLIGHTS FOR AI REASONING</div>
+      </div>
+    </div>
   </div>
-  <div class="s1-body" id="section1-body">{{SECTION1_HTML}}</div>
+  <div class="panel-grid" id="section1-body">{{SECTION1_HTML}}</div>
 </div>
 
-<!-- CH 02 -->
-<div class="ch" id="s2">
-  <div class="ch-num">02</div>
-  <div class="ch-text">
+<!-- ═══ CH 02 ═══ -->
+<div class="ch-panel panel" id="s2">
+  <div class="ch-num-col"><div class="ch-num">02</div></div>
+  <div class="ch-title-col">
     <div class="ch-title">Concept Graph</div>
-    <div class="ch-sub">FORCE-DIRECTED · CLICK NODE TO JUMP SOURCE · DRAG TO EXPLORE</div>
+    <div class="ch-sub">FORCE-DIRECTED · HOVER NODE = ISOLATE · CLICK = JUMP TO SOURCE</div>
   </div>
-  <div class="ch-img"><img src="images/0xEP002p.jpeg" alt=""></div>
+  <div class="ch-art-col"><img src="images/0xEP002p.jpeg" alt=""></div>
 </div>
 
-<!-- SECTION 2 -->
-<div class="s2">
+<!-- ═══ SECTION 2 ═══ -->
+<div class="s2-wrap panel">
   <div class="s2-bg"></div>
   <div class="s2-inner">
     <div id="graph-canvas"></div>
@@ -75,44 +94,32 @@
   </div>
 </div>
 
-<!-- CH 03 -->
-<div class="ch" id="s3">
-  <div class="ch-num">03</div>
-  <div class="ch-text">
+<!-- ═══ CH 03 ═══ -->
+<div class="ch-panel panel" id="s3">
+  <div class="ch-num-col"><div class="ch-num">03</div></div>
+  <div class="ch-title-col">
     <div class="ch-title">Intelligence Dossier</div>
     <div class="ch-sub">AI SYNTHESIS · FINDINGS · LEARNING PATH · VERDICT</div>
   </div>
-  <div class="ch-img"><img src="images/0xAC004p.jpeg" alt=""></div>
+  <div class="ch-art-col"><img src="images/0xAC004p.jpeg" alt=""></div>
 </div>
 
-<!-- SECTION 3 -->
-<div class="s3">
-  <div class="s3-collage" aria-hidden="true">
+<!-- ═══ SECTION 3 ═══ -->
+<div class="s3-spread panel">
+  <div class="s3-art-col">
     <img src="images/0xAC007p.jpeg" alt="">
-    <img src="images/0xBG005w.jpeg" alt="">
-    <img src="images/0xAC005p.jpeg" alt="">
-    <img src="images/0xAC002p.jpeg" alt="">
-    <img src="images/彡 by budkalon – twt.jpeg" alt="">
   </div>
-  <div class="s3-inner" id="s3-inner"></div>
+  <div class="s3-content" id="dos-content"></div>
 </div>
+
+</div><!-- end .page -->
 
 <!-- TOOLTIP -->
-<div class="tip" id="tip">
-  <div class="tip-cat" id="tip-cat"></div>
-  <div id="tip-reason"></div>
-</div>
-
+<div class="tip" id="tip"><div class="tip-cat" id="tip-cat"></div><div id="tip-reason"></div></div>
 <!-- NODE POPUP -->
-<div class="node-pop" id="node-pop">
-  <div class="np-type" id="np-type"></div>
-  <div class="np-name" id="np-name"></div>
-</div>
-
+<div class="node-pop" id="node-pop"><div class="np-type" id="np-type"></div><div class="np-name" id="np-name"></div></div>
 <!-- FOOTER -->
-<footer class="foot" id="foot">
-  <div class="foot-logo">LEXIS</div>
-</footer>
+<footer class="foot" id="foot"><div class="foot-logo">LEXIS</div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
 <script>{{INLINE_JS}}</script>

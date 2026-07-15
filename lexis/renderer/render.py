@@ -52,26 +52,28 @@ def _annotate_text(text: str, highlights: list[Highlight]) -> str:
 
 def _build_section1_html(pages: list[ExtractedPage], highlights: list[Highlight]) -> str:
     parts = []
-    for page in pages:
+    for i, page in enumerate(pages):
         page_hl = [h for h in highlights if h.source_url == page.url]
         annotated = _annotate_text(page.markdown, page_hl)
-        annotated = re.sub(r"^# (.+)$",    r"<h2>\1</h2>", annotated, flags=re.MULTILINE)
-        annotated = re.sub(r"^## (.+)$",   r"<h3>\1</h3>", annotated, flags=re.MULTILINE)
-        annotated = re.sub(r"^### (.+)$",  r"<h4>\1</h4>", annotated, flags=re.MULTILINE)
+        annotated = re.sub(r"^# (.+)$",   r"<h2>\1</h2>", annotated, flags=re.MULTILINE)
+        annotated = re.sub(r"^## (.+)$",  r"<h3>\1</h3>", annotated, flags=re.MULTILINE)
+        annotated = re.sub(r"^### (.+)$", r"<h4>\1</h4>", annotated, flags=re.MULTILINE)
         annotated = re.sub(r"\n\n+", "</p><p>", annotated)
         annotated = f"<p>{annotated}</p>"
+        wide = " wide" if len(pages) == 1 else ""
         parts.append(f"""
-        <div class="src-block" data-url="{page.url}">
-          <div class="src-header">
-            <span class="src-dot"></span>
+        <div class="src-panel{wide}" data-url="{page.url}">
+          <div class="src-panel-header">
+            <span class="src-panel-dot"></span>
             <div>
-              <div class="src-title">{page.title}</div>
-              <a class="src-url" href="{page.url}" target="_blank" rel="noopener">{page.url}</a>
+              <div class="src-panel-title">{page.title}</div>
+              <a class="src-panel-url" href="{page.url}" target="_blank" rel="noopener">{page.url}</a>
             </div>
           </div>
           <div class="src-body">{annotated}</div>
         </div>""")
     return "\n".join(parts)
+
 
 
 def render(

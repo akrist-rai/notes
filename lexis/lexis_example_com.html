@@ -1,133 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LEXIS — STRUCTURED LEARNING SYSTEMS</title>
-<style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+<style>@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#060508;--deep:#0c0b0e;--red:#d63031;--gold:#e6a817;--teal:#00cec9;--violet:#6c5ce7;--cream:#ede8e0;--dim:#7a7068;--mono:'JetBrains Mono',monospace}
-html{scroll-behavior:smooth}body{background:var(--ink);color:var(--cream);font-family:'Inter',sans-serif;overflow-x:hidden}
+:root{
+  --paper:#f0ebe0;--paper2:#e8e0d4;--ink:#1a1517;--ink2:#2d2529;
+  --red:#e8192c;--gold:#c97d10;--teal:#007a7a;
+  --border:4px solid #1a1517;--gap:10px;
+  --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+/* Dark gutter = manga binding */
+body{background:#2d2529;font-family:'Inter',sans-serif;color:var(--ink);overflow-x:hidden;min-height:100vh}
 
-/* GRAIN */
-body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;mix-blend-mode:overlay}
-
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;padding:.9rem 3rem;background:linear-gradient(180deg,rgba(6,5,8,.9) 0%,transparent 100%)}
+/* ── NAV ── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--ink);border-bottom:var(--border);display:flex;align-items:center;padding:.6rem 2rem;gap:2rem}
 .nav-logo{font-family:'Bebas Neue';font-size:1.6rem;letter-spacing:.08em;color:#fff}.nav-logo b{color:var(--red)}
-.nav-links{margin-left:auto;display:flex;gap:1.8rem}.nav-a{font-family:var(--mono);font-size:.65rem;color:var(--dim);text-decoration:none;letter-spacing:.15em;transition:.2s;text-transform:uppercase}.nav-a:hover,.nav-a.on{color:var(--gold)}
-.badge{font-family:var(--mono);font-size:.6rem;padding:.25rem .7rem;border:1px solid rgba(255,255,255,.12);color:var(--dim);margin-left:1.5rem}
+.nav-links{display:flex;gap:1.5rem;margin-left:auto}
+.nav-a{font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.4);text-decoration:none;letter-spacing:.18em;text-transform:uppercase;transition:.15s}.nav-a:hover,.nav-a.on{color:var(--red)}
+.badge{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.3);letter-spacing:.12em}
 
-/* HERO */
-.hero{position:relative;height:100svh;min-height:640px;display:grid;grid-template-columns:1fr 420px;overflow:hidden}
-.hero-left{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:4rem 3rem}
-.hero-bg{position:absolute;inset:0;background:url('images/0xBG001w.jpeg') center/cover;filter:brightness(.45) saturate(1.3)}
-.hero-fade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,5,8,.85) 40%,transparent 100%),linear-gradient(0deg,rgba(6,5,8,1) 0%,transparent 50%)}
-.hero-right{position:relative;overflow:hidden}
-.hero-right img{width:100%;height:100%;object-fit:cover;object-position:top;mix-blend-mode:luminosity;opacity:.6;filter:saturate(1.4) contrast(1.1)}
-.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,5,8,1) 0%,transparent 30%),linear-gradient(180deg,rgba(6,5,8,.8) 0%,transparent 20%,transparent 80%,rgba(6,5,8,1) 100%);z-index:1}
-.hero-kicker{position:relative;z-index:2;font-family:var(--mono);font-size:.65rem;letter-spacing:.25em;color:var(--teal);margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem}
-.hero-kicker::before{content:'';width:32px;height:1px;background:var(--teal)}
-.hero-h1{position:relative;z-index:2;font-family:'Bebas Neue';font-size:clamp(3.5rem,8vw,8rem);line-height:.88;letter-spacing:.02em;color:#fff;text-shadow:0 0 120px rgba(214,48,49,.35)}
-.hero-h1 em{color:var(--red);font-style:normal}
-.hero-stats{position:relative;z-index:2;display:flex;gap:2.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08)}
-.stat{display:flex;flex-direction:column;gap:.2rem}.stat-v{font-family:'Bebas Neue';font-size:2.2rem;color:var(--gold);line-height:1}.stat-l{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:var(--dim)}
-.threat-badge{margin-left:auto;align-self:center;font-family:var(--mono);font-size:.65rem;padding:.4rem 1rem;letter-spacing:.15em;border:1px solid}.tb-LOW{border-color:var(--teal);color:var(--teal)}.tb-MEDIUM{border-color:var(--gold);color:var(--gold)}.tb-HIGH,.tb-CRITICAL{border-color:var(--red);color:var(--red);animation:pulse 1.5s infinite}
-@keyframes pulse{50%{opacity:.4}}
+/* ── PAGE WRAPPER ── */
+.page{max-width:1440px;margin:var(--gap) auto;background:var(--paper);padding-top:48px}
 
-/* CHAPTER BREAK */
-.ch{display:flex;align-items:stretch;background:var(--deep);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);overflow:hidden}
-.ch-num{font-family:'Bebas Neue';font-size:7rem;line-height:1;color:rgba(255,255,255,.04);padding:.5rem 2rem;flex-shrink:0;border-right:1px solid rgba(255,255,255,.05)}
-.ch-text{padding:1.2rem 2rem;display:flex;flex-direction:column;justify-content:center}
-.ch-title{font-family:'Bebas Neue';font-size:2rem;letter-spacing:.04em;color:#fff}
-.ch-sub{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;color:var(--dim);margin-top:.2rem}
-.ch-img{margin-left:auto;width:200px;position:relative;overflow:hidden;flex-shrink:0}
-.ch-img img{width:100%;height:100%;object-fit:cover;opacity:.35;filter:saturate(1.5)}
-.ch-img::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--deep) 0%,transparent 40%);z-index:1}
+/* ── PANEL PRIMITIVES ── */
+.panel{border:var(--border);background:var(--paper);overflow:hidden;position:relative}
+.panel-dark{background:var(--ink);color:#fff}
+.panel-red{background:var(--red);color:#fff}
 
-/* SECTION 1 */
-.s1{display:grid;grid-template-columns:300px 1fr;min-height:100vh}
-.s1-art{position:sticky;top:0;height:100vh;overflow:hidden}
-.s1-art img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:saturate(1.2) brightness(.7)}
-.s1-art::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,var(--ink) 100%),linear-gradient(180deg,rgba(6,5,8,.7) 0%,transparent 15%)}
-.s1-body{padding:3rem 4rem;background:var(--ink)}
-.src-block{margin-bottom:3.5rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(255,255,255,.05)}
-.src-block:last-child{border-bottom:none}
-.src-header{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:1.5rem}
-.src-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);margin-top:5px;flex-shrink:0;box-shadow:0 0 8px var(--teal)}
-.src-title{font-size:.9rem;font-weight:600;color:#fff;line-height:1.3}.src-url{font-family:var(--mono);font-size:.62rem;color:var(--dim);text-decoration:none;display:block;margin-top:.2rem}.src-url:hover{color:var(--teal)}
-.src-body{font-size:.875rem;line-height:1.9;color:rgba(237,232,224,.8)}
-.src-body h2,.src-body h3{font-family:'Bebas Neue';font-size:1.6rem;letter-spacing:.04em;color:#fff;margin:1.8rem 0 .6rem}
-.src-body p{margin-bottom:1.1rem}
+/* ── HERO PAGE ── */
+.hero-page{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;border-bottom:var(--border)}
+.hero-main{grid-row:1/3;border-right:var(--border);position:relative;min-height:90vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero-img{position:absolute;inset:0;background:url('images/0xBG001w.jpeg') center/cover;filter:brightness(.45) saturate(1.3) contrast(1.1)}
 
-/* HIGHLIGHTS */
-mark.hl{background:none;border-radius:2px;cursor:pointer;transition:background .15s,filter .15s}
-mark.hl-critical{background:rgba(214,48,49,.2);border-bottom:2px solid var(--red);color:#fff}
-mark.hl-high{background:rgba(230,168,23,.14);border-bottom:2px solid var(--gold);color:#fff}
-mark.hl-medium{background:rgba(0,206,201,.08);border-bottom:1px dashed rgba(0,206,201,.5)}
-mark.hl:hover{filter:brightness(1.5)}
-.tip{position:fixed;z-index:9999;background:rgba(12,11,14,.96);border:1px solid rgba(255,255,255,.08);border-left:3px solid var(--red);padding:.7rem 1rem;max-width:280px;font-size:.75rem;pointer-events:none;opacity:0;transition:opacity .12s;backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(0,0,0,.8)}
-.tip.on{opacity:1}.tip-cat{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:var(--red);margin-bottom:.3rem}
+/* Speed lines */
+.speed-lines{position:absolute;inset:0;background:repeating-conic-gradient(rgba(255,255,255,.03) 0deg,transparent .15deg,transparent 2.5deg) 50% 50%/100% 100%;pointer-events:none}
+.hero-ink-grad{position:absolute;inset:0;background:linear-gradient(0deg,rgba(26,21,23,1) 0%,rgba(26,21,23,.5) 40%,transparent 100%)}
 
-/* SECTION 2 — GRAPH */
-.s2{position:relative;min-height:100vh;display:flex;flex-direction:column}
-.s2-bg{position:absolute;inset:0;background:url('images/0xBG002w.jpeg') center/cover;filter:brightness(.18) saturate(1.5)}
+.hero-text{position:relative;z-index:2;padding:2.5rem 3rem}
+.hero-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.25em;color:var(--red);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+.hero-kicker::before{content:'▶';font-size:.5rem}
+.hero-h1{font-family:'Bebas Neue';font-size:clamp(4rem,8vw,8.5rem);line-height:.88;letter-spacing:.02em;color:#fff;text-shadow:4px 4px 0 var(--red),-1px -1px 0 #000}
+.hero-h1 span{display:block}
+
+.hero-stats-panel{border-bottom:var(--border);padding:1.5rem 2rem;background:var(--ink);color:#fff}
+.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat-box{display:flex;flex-direction:column;gap:.15rem}
+.stat-v{font-family:'Bebas Neue';font-size:2.8rem;color:var(--red);line-height:1}
+.stat-l{font-family:var(--mono);font-size:.52rem;letter-spacing:.15em;color:rgba(255,255,255,.4);text-transform:uppercase}
+
+.hero-right-art{grid-row:2;overflow:hidden;position:relative;min-height:300px}
+.hero-right-art img{width:100%;height:100%;object-fit:cover;object-position:top;filter:grayscale(.3) contrast(1.1)}
+.hero-right-art::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,var(--paper) 0%,transparent 20%);z-index:1}
+
+.threat-stamp{position:absolute;bottom:1rem;right:1rem;z-index:5;font-family:'Bebas Neue';font-size:1rem;letter-spacing:.14em;padding:.3rem .8rem;border:3px solid}
+.tb-LOW{border-color:var(--teal);color:var(--teal);background:rgba(240,235,224,.9)}
+.tb-MEDIUM{border-color:var(--gold);color:var(--gold);background:rgba(240,235,224,.9)}
+.tb-HIGH,.tb-CRITICAL{border-color:var(--red);color:var(--red);background:rgba(240,235,224,.9);animation:stamp-blink 1s steps(1) infinite}
+@keyframes stamp-blink{50%{opacity:.3}}
+
+/* ── CHAPTER TITLE PANEL ── */
+.ch-panel{border-bottom:var(--border);display:grid;grid-template-columns:120px 1fr 200px;overflow:hidden}
+.ch-num-col{background:var(--ink);display:flex;align-items:center;justify-content:center;border-right:var(--border);padding:1rem}
+.ch-num{font-family:'Bebas Neue';font-size:5rem;color:rgba(255,255,255,.08);line-height:1;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);letter-spacing:.15em}
+.ch-title-col{padding:1.2rem 2rem;display:flex;flex-direction:column;justify-content:center;border-right:var(--border)}
+.ch-title{font-family:'Bebas Neue';font-size:2.5rem;letter-spacing:.04em;color:var(--ink)}
+.ch-sub{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;color:rgba(26,21,23,.4);text-transform:uppercase;margin-top:.25rem}
+.ch-art-col{overflow:hidden;position:relative}
+.ch-art-col img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:saturate(1.1)}
+.ch-art-col::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--paper) 0%,transparent 30%);z-index:1}
+
+/* ── SECTION 1 — MANGA PANEL GRID ── */
+.s1-splash{position:relative;border-bottom:var(--border);overflow:hidden;height:38vh}
+.s1-splash img{width:100%;height:100%;object-fit:cover;object-position:center 25%;filter:brightness(.55) contrast(1.2) saturate(1.1)}
+.s1-splash::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,var(--paper) 0%,transparent 50%)}
+.s1-splash-over{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:1.5rem 2.5rem;display:flex;align-items:flex-end;gap:1.5rem}
+.s1-splash-num{font-family:'Bebas Neue';font-size:5rem;color:rgba(26,21,23,.15);line-height:1;flex-shrink:0}
+.s1-splash-label{font-family:'Bebas Neue';font-size:1.8rem;letter-spacing:.04em;color:var(--ink)}
+
+/* two-col panel grid */
+.panel-grid{display:grid;grid-template-columns:1fr 1fr}
+.src-panel{border-right:var(--border);border-bottom:var(--border);display:flex;flex-direction:column}
+.src-panel:nth-child(even){border-right:none}
+.src-panel.wide{grid-column:1/-1;border-right:none}
+.src-panel-hd{display:flex;align-items:center;gap:.6rem;padding:.7rem 1.5rem;border-bottom:var(--border);background:var(--ink2)}
+.src-panel-dot{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;box-shadow:0 0 6px var(--red)}
+.src-panel-title{font-size:.8rem;font-weight:700;color:#fff}
+.src-panel-url{font-family:var(--mono);font-size:.56rem;color:rgba(255,255,255,.35)}
+
+/* Manga-style article text */
+.src-body{padding:2rem;flex:1;background:var(--paper)}
+.src-body h2{font-family:'Bebas Neue';font-size:2rem;letter-spacing:.04em;color:var(--ink);line-height:1;margin:1.8rem 0 .5rem;padding-left:.6rem;border-left:5px solid var(--red)}
+.src-body h3{font-family:'Bebas Neue';font-size:1.5rem;color:var(--gold);letter-spacing:.03em;margin:1.4rem 0 .4rem}
+.src-body h4{font-family:var(--mono);font-size:.72rem;color:var(--teal);letter-spacing:.12em;text-transform:uppercase;margin:1rem 0 .3rem}
+.src-body p{font-size:.9rem;line-height:1.95;color:rgba(26,21,23,.8);margin-bottom:1rem}
+
+/* Highlights */
+mark.hl{background:none;cursor:pointer;transition:filter .15s;font-weight:600}
+mark.hl-critical{background:rgba(232,25,44,.15);border-bottom:2.5px solid var(--red);color:var(--ink)}
+mark.hl-high{background:rgba(201,125,16,.12);border-bottom:2.5px solid var(--gold);color:var(--ink)}
+mark.hl-medium{background:rgba(0,122,122,.07);border-bottom:1.5px dashed var(--teal)}
+mark.hl:hover{filter:brightness(.8)}
+
+/* Tooltip — speech bubble */
+.tip{position:fixed;z-index:9999;background:#fff;border:2.5px solid var(--ink);border-radius:8px;padding:.7rem 1rem;max-width:240px;font-size:.75rem;color:var(--ink);pointer-events:none;opacity:0;transition:opacity .1s;box-shadow:3px 3px 0 var(--ink)}
+.tip::after{content:'';position:absolute;bottom:-10px;left:20px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid var(--ink)}
+.tip::before{content:'';position:absolute;bottom:-7px;left:22px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid #fff;z-index:1}
+.tip.on{opacity:1}.tip-cat{font-family:var(--mono);font-size:.56rem;letter-spacing:.15em;color:var(--red);margin-bottom:.25rem;font-weight:700}
+
+/* ── SECTION 2 — GRAPH ── */
+.s2-wrap{border-bottom:var(--border);position:relative;display:flex;flex-direction:column;min-height:90vh}
+/* Manga hatching on dark BG */
+.s2-bg{position:absolute;inset:0;background:url('images/0xBG002w.jpeg') center/cover;filter:brightness(.1) saturate(2) contrast(1.3)}
+.s2-bg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 4px,rgba(255,255,255,.015) 4px,rgba(255,255,255,.015) 5px)}
 .s2-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column}
-#graph-canvas{flex:1;min-height:80vh}
-.graph-bar{display:flex;flex-wrap:wrap;gap:.6rem;padding:1rem 3rem;background:rgba(6,5,8,.88);border-top:1px solid rgba(255,255,255,.06);backdrop-filter:blur(8px)}
-.leg{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.6rem;color:var(--dim)}.leg-c{width:8px;height:8px;border-radius:50%}
+#graph-canvas{flex:1;min-height:82vh;cursor:grab}
+#graph-canvas:active{cursor:grabbing}
+.graph-bar{display:flex;flex-wrap:wrap;gap:.4rem .8rem;padding:.8rem 2rem;background:var(--ink);border-top:var(--border)}
+.leg{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.58rem;color:#fff;letter-spacing:.08em;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.18rem .55rem;border-radius:4px}
+.leg-c{width:9px;height:9px;border-radius:50%;flex-shrink:0;border:1.5px solid rgba(255,255,255,.2)}
 
-/* NODE POPUP */
-.node-pop{position:fixed;z-index:500;background:rgba(12,11,14,.95);border:1px solid rgba(255,255,255,.1);padding:1rem;max-width:220px;pointer-events:none;opacity:0;transition:opacity .15s;backdrop-filter:blur(16px)}
-.node-pop.on{opacity:1}.np-type{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;margin-bottom:.3rem}.np-name{font-family:'Bebas Neue';font-size:1.3rem;letter-spacing:.04em;color:#fff}
+/* Node popup */
+.node-pop{position:fixed;z-index:600;background:var(--paper);border:2.5px solid var(--ink);border-radius:6px;padding:.7rem 1rem;max-width:180px;pointer-events:none;opacity:0;transition:opacity .1s;box-shadow:3px 3px 0 var(--ink)}
+.node-pop::after{content:'';position:absolute;bottom:-10px;left:16px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid var(--ink)}
+.node-pop::before{content:'';position:absolute;bottom:-7px;left:18px;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--paper);z-index:1}
+.node-pop.on{opacity:1}
+.np-type{font-family:var(--mono);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:.2rem;font-weight:700}
+.np-name{font-family:'Bebas Neue';font-size:1.3rem;letter-spacing:.04em;color:var(--ink);line-height:1}
 
-/* SECTION 3 */
-.s3{min-height:100vh;position:relative}
-.s3-collage{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr}
-.s3-collage img{width:100%;height:100%;object-fit:cover;filter:brightness(.25) saturate(1.2)}
-.s3-collage img:nth-child(1){object-position:top}
-.s3-collage img:nth-child(3){grid-row:1/3;object-position:center}
-.s3-collage::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(6,5,8,.95) 0%,rgba(6,5,8,.8) 60%,rgba(6,5,8,.92) 100%)}
-.s3-inner{position:relative;z-index:1;padding:5rem 4rem 5rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-content:start}
-.s3-head{grid-column:1/-1;margin-bottom:2rem}
-.s3-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--dim);margin-bottom:.6rem}
-.s3-subject{font-family:'Bebas Neue';font-size:clamp(2.5rem,6vw,5rem);letter-spacing:.03em;color:#fff;line-height:.9;margin-bottom:1rem}
-.s3-summary{font-size:.9rem;line-height:1.85;color:rgba(237,232,224,.75);max-width:65ch}
-.dos-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:1.5rem;transition:border-color .2s}
-.dos-card:hover{border-color:rgba(255,255,255,.14)}
+/* ── SECTION 3 — DOSSIER ── */
+.s3-spread{display:grid;grid-template-columns:320px 1fr;border-bottom:var(--border)}
+.s3-art-col{border-right:var(--border);position:relative;overflow:hidden}
+.s3-art-col img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.s3-art-col::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,var(--paper) 0%,transparent 30%)}
+
+.s3-content{padding:3rem 2.5rem}
+.dos-class{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;color:rgba(26,21,23,.4);margin-bottom:.5rem}
+.dos-subject{font-family:'Bebas Neue';font-size:clamp(3rem,5.5vw,5rem);letter-spacing:.02em;color:var(--ink);line-height:.88;margin-bottom:1.2rem}
+.dos-subject span{display:block;color:var(--red)}
+.dos-summary{font-size:.875rem;line-height:1.95;color:rgba(26,21,23,.7);max-width:60ch}
+
+/* Panel grid for dossier cards */
+.dos-panels{display:grid;grid-template-columns:1fr 1fr;border-top:var(--border);border-left:var(--border)}
+.dos-card{border-right:var(--border);border-bottom:var(--border);padding:1.5rem}
 .dos-card.full{grid-column:1/-1}
-.card-title{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;color:var(--dim);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(255,255,255,.06)}
-.find-item{padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,.04)}.find-item:last-child{border-bottom:none;padding-bottom:0}
-.find-txt{font-size:.8rem;color:#fff;line-height:1.5;margin-bottom:.2rem}
-.find-conf{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em}.fc-HIGH{color:#4ade80}.fc-MEDIUM{color:var(--gold)}.fc-LOW{color:var(--dim)}
-.find-impl{font-size:.72rem;color:var(--dim);margin-top:.2rem}
-.gap-row{font-size:.78rem;color:rgba(237,232,224,.7);padding:.3rem .7rem;border-left:2px solid var(--red);margin-bottom:.35rem;background:rgba(214,48,49,.05)}
-.step-row{display:flex;gap:.7rem;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04)}.step-row:last-child{border-bottom:none}
-.step-n{font-family:'Bebas Neue';font-size:1.2rem;color:var(--gold);min-width:1.8rem;line-height:1.1}
-.step-top{font-size:.78rem;color:#fff;font-weight:500}.step-why{font-size:.7rem;color:var(--dim)}
-.an-row{border-left:2px solid var(--teal);padding:.4rem .7rem;margin-bottom:.4rem;background:rgba(0,206,201,.04)}
-.an-con{font-family:var(--mono);font-size:.58rem;color:var(--teal);letter-spacing:.08em;margin-bottom:.2rem}
-.an-txt{font-size:.77rem;color:rgba(237,232,224,.8);line-height:1.5}
-.threat-card{grid-column:1/-1;background:rgba(214,48,49,.07);border:1px solid rgba(214,48,49,.2);padding:1.5rem}
-.threat-lbl{font-family:var(--mono);font-size:.6rem;color:var(--red);letter-spacing:.18em;margin-bottom:.5rem}
-.threat-txt{font-size:.82rem;color:var(--cream);line-height:1.75}
-.verdict-card{grid-column:1/-1;background:linear-gradient(135deg,rgba(214,48,49,.1),rgba(108,92,231,.08));border:1px solid rgba(230,168,23,.25);padding:2rem;position:relative;overflow:hidden}
-.verdict-card::before{content:'';position:absolute;inset:0;background:url('images/0xBG003w.jpeg') center/cover;opacity:.08;mix-blend-mode:luminosity}
-.verdict-lbl{font-family:var(--mono);font-size:.6rem;color:var(--gold);letter-spacing:.2em;margin-bottom:.6rem;position:relative}
-.verdict-txt{font-family:'Bebas Neue';font-size:clamp(1.4rem,3vw,2.2rem);color:#fff;letter-spacing:.03em;line-height:1.15;position:relative}
+.card-hd{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(26,21,23,.4);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:2px solid var(--ink);display:flex;align-items:center;gap:.4rem}
+.card-hd::before{content:'■';color:var(--red);font-size:.5rem}
 
-/* FOOTER */
-.foot{background:var(--deep);border-top:1px solid rgba(255,255,255,.05);padding:1.2rem 3rem;display:flex;gap:2rem;flex-wrap:wrap;align-items:center}
-.foot-logo{font-family:'Bebas Neue';font-size:1.1rem;color:rgba(255,255,255,.15);margin-right:auto}
-.foot-src{font-family:var(--mono);font-size:.62rem;color:var(--dim)}.foot-src::before{content:'↗ '}.foot-src a{color:var(--dim);text-decoration:none}.foot-src a:hover{color:var(--gold)}
+.find-item{padding:.55rem 0;border-bottom:1px solid rgba(26,21,23,.08)}.find-item:last-child{border-bottom:none}
+.find-txt{font-size:.82rem;color:var(--ink);line-height:1.5;font-weight:600;margin-bottom:.2rem}
+.find-conf{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;display:flex;align-items:center;gap:.3rem}
+.find-conf::before{content:'◆';font-size:.45rem}
+.fc-HIGH{color:#16a34a}.fc-MEDIUM{color:var(--gold)}.fc-LOW{color:rgba(26,21,23,.4)}
+.find-impl{font-size:.72rem;color:rgba(26,21,23,.55);margin-top:.2rem;font-style:italic}
 
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr}.hero-right{display:none}
-  .s1{grid-template-columns:1fr}.s1-art{display:none}
-  .s3-inner{grid-template-columns:1fr;padding:3rem 1.5rem}
-  .s3-collage{display:none}.s3{background:var(--ink)}
-  .dos-card.full,.verdict-card,.threat-card{grid-column:1}
-  .hero-left,.s1-body,.ch{padding-left:1.5rem;padding-right:1.5rem}
+.gap-row{font-size:.78rem;color:var(--ink);padding:.3rem .6rem;border-left:3px solid var(--red);margin-bottom:.3rem;background:rgba(232,25,44,.04)}
+.step-row{display:flex;gap:.7rem;padding:.45rem 0;border-bottom:1px solid rgba(26,21,23,.07)}.step-row:last-child{border-bottom:none}
+.step-n{font-family:'Bebas Neue';font-size:1.4rem;color:var(--red);min-width:1.8rem;line-height:1}
+.step-top{font-size:.8rem;color:var(--ink);font-weight:600;line-height:1.3}.step-why{font-size:.7rem;color:rgba(26,21,23,.5);margin-top:.1rem}
+.an-row{border-left:3px solid var(--teal);padding:.4rem .7rem;margin-bottom:.35rem;background:rgba(0,122,122,.04)}
+.an-con{font-family:var(--mono);font-size:.55rem;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.15rem;font-weight:600}
+.an-txt{font-size:.77rem;color:rgba(26,21,23,.75);line-height:1.55}
+
+.threat-panel{background:var(--red);color:#fff;border-color:var(--red) !important;grid-column:1/-1}
+.threat-lbl{font-family:var(--mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem;opacity:.75}
+.threat-txt{font-size:.83rem;line-height:1.8}
+
+/* Verdict — manga spread */
+.verdict-panel{grid-column:1/-1;position:relative;overflow:hidden;padding:2.5rem !important;background:var(--ink);color:#fff}
+.verdict-panel::before{font-family:'Bebas Neue';content:'VERDICT';position:absolute;font-size:11rem;right:-1rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.04);letter-spacing:.05em;pointer-events:none}
+.verdict-lbl{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.6rem}
+.verdict-txt{font-family:'Bebas Neue';font-size:clamp(1.6rem,3vw,2.5rem);color:#fff;letter-spacing:.02em;line-height:1.1;position:relative}
+
+/* ── FOOTER ── */
+.foot{background:var(--ink);border-top:var(--border);padding:1rem 2rem;display:flex;gap:2rem;flex-wrap:wrap;align-items:center}
+.foot-logo{font-family:'Bebas Neue';font-size:1rem;color:rgba(255,255,255,.1);margin-right:auto}
+.foot-src{font-family:var(--mono);font-size:.58rem;color:rgba(255,255,255,.3)}.foot-src a{color:rgba(255,255,255,.3);text-decoration:none}.foot-src a:hover{color:var(--red)}.foot-src::before{content:'↗ ';color:var(--red)}
+
+@media(max-width:1000px){
+  .hero-page{grid-template-columns:1fr}.hero-right-art{display:none}
+  .panel-grid{grid-template-columns:1fr}.src-panel{border-right:none}
+  .ch-panel{grid-template-columns:80px 1fr}.ch-art-col{display:none}
+  .s3-spread{grid-template-columns:1fr}.s3-art-col{display:none}
+  .dos-panels{grid-template-columns:1fr}.dos-card,.dos-card.full{grid-column:1}
+  .page,.s3-content,.hero-text{padding-left:1rem;padding-right:1rem}
 }
 </style>
 </head>
@@ -143,66 +201,86 @@ mark.hl:hover{filter:brightness(1.5)}
   <span class="badge">1 SRC · LOW</span>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <div class="hero-bg"></div>
-    <div class="hero-fade"></div>
-    <div class="hero-kicker">LEXIS INTELLIGENCE DIGEST · 2026-07-15 11:03</div>
-    <h1 class="hero-h1">STRUCTURED LEARNING SYSTEMS</h1>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-v" id="h-pages">—</span><span class="stat-l">SOURCES</span></div>
-      <div class="stat"><span class="stat-v" id="h-hl">—</span><span class="stat-l">HIGHLIGHTS</span></div>
-      <div class="stat"><span class="stat-v" id="h-nodes">—</span><span class="stat-l">CONCEPTS</span></div>
-      <div class="stat"><span class="stat-v" id="h-edges">—</span><span class="stat-l">RELATIONS</span></div>
-      <span class="threat-badge tb-LOW">LOW THREAT</span>
+<div class="page">
+
+<!-- ═══ HERO PAGE ═══ -->
+<div class="hero-page panel">
+  <!-- Main splash panel -->
+  <div class="hero-main">
+    <div class="hero-img"></div>
+    <div class="speed-lines"></div>
+    <div class="hero-ink-grad"></div>
+    <div class="hero-text">
+      <div class="hero-kicker">LEXIS INTELLIGENCE DIGEST · 2026-07-15 11:24</div>
+      <h1 class="hero-h1">
+        <span>STRUCTURED LEARNING SYSTEMS</span>
+      </h1>
     </div>
   </div>
-  <div class="hero-right">
-    <img src="images/0xAC009p.jpeg" alt="">
+  <!-- Right column -->
+  <div>
+    <div class="hero-stats-panel panel">
+      <div class="hero-stats">
+        <div class="stat-box"><span class="stat-v" id="h-pages">—</span><span class="stat-l">Sources</span></div>
+        <div class="stat-box"><span class="stat-v" id="h-hl">—</span><span class="stat-l">Highlights</span></div>
+        <div class="stat-box"><span class="stat-v" id="h-nodes">—</span><span class="stat-l">Concepts</span></div>
+        <div class="stat-box"><span class="stat-v" id="h-edges">—</span><span class="stat-l">Relations</span></div>
+      </div>
+    </div>
+    <div class="hero-right-art">
+      <img src="images/0xAC009p.jpeg" alt="">
+      <div class="threat-stamp tb-LOW">LOW THREAT</div>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- CH 01 -->
-<div class="ch" id="s1">
-  <div class="ch-num">01</div>
-  <div class="ch-text">
+<!-- ═══ CH 01 ═══ -->
+<div class="ch-panel panel" id="s1">
+  <div class="ch-num-col"><div class="ch-num">01</div></div>
+  <div class="ch-title-col">
     <div class="ch-title">Annotated Source</div>
     <div class="ch-sub">ORIGINAL TEXT · AI-HIGHLIGHTED SPANS · HOVER FOR REASONING</div>
   </div>
-  <div class="ch-img"><img src="images/0xAC006p.jpeg" alt=""></div>
+  <div class="ch-art-col"><img src="images/0xAC006p.jpeg" alt=""></div>
 </div>
 
-<!-- SECTION 1 -->
-<div class="s1" id="s1-wrap">
-  <div class="s1-art">
+<!-- ═══ SECTION 1 ═══ -->
+<div class="panel">
+  <div class="s1-splash">
     <img src="images/0xAC003p.jpeg" alt="">
+    <div class="s1-splash-over">
+      <span class="s1-splash-num">01</span>
+      <div>
+        <div class="s1-splash-label">Annotated Source</div>
+        <div style="font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:rgba(26,21,23,.55)">HOVER HIGHLIGHTS FOR AI REASONING</div>
+      </div>
+    </div>
   </div>
-  <div class="s1-body" id="section1-body">
-        <div class="src-block" data-url="https://example.com">
-          <div class="src-header">
-            <span class="src-dot"></span>
+  <div class="panel-grid" id="section1-body">
+        <div class="src-panel wide" data-url="https://example.com">
+          <div class="src-panel-header">
+            <span class="src-panel-dot"></span>
             <div>
-              <div class="src-title">Example Source Page</div>
-              <a class="src-url" href="https://example.com" target="_blank" rel="noopener">https://example.com</a>
+              <div class="src-panel-title">Example Source Page</div>
+              <a class="src-panel-url" href="https://example.com" target="_blank" rel="noopener">https://example.com</a>
             </div>
           </div>
           <div class="src-body"><p><h2>Introduction to the Topic</h2></p><p>This is a sample article about a complex subject. The key insight here is that <mark class="hl hl-critical" data-reason="Foundation before advanced topics" data-importance="critical" data-category="concept">understanding the fundamentals is critical</mark> before moving on to advanced topics.</p><p><h3>Core Concepts</h3></p><p>The first concept to grasp is the relationship between inputs and outputs in any system. Without this foundation, the rest becomes noise.</p><p>A second important idea: <mark class="hl hl-high" data-reason="Feedback loops outperform isolated design" data-importance="high" data-category="claim">iteration beats perfection</mark>. Systems that learn from feedback loops outperform those designed in isolation.</p><p><h3>Risks and Considerations</h3></p><p>One major warning: <mark class="hl hl-high" data-reason="Key anti-pattern warning" data-importance="high" data-category="warning">over-engineering early leads to brittle systems</mark>. Start simple, add complexity only when forced.</p><p><h3>Conclusion</h3></p><p>The most important takeaway is that <mark class="hl hl-medium" data-reason="Meta-skill worth internalizing" data-importance="medium" data-category="concept">structured thinking applied to messy domains</mark> is itself a learnable skill.</p></div>
         </div></div>
 </div>
 
-<!-- CH 02 -->
-<div class="ch" id="s2">
-  <div class="ch-num">02</div>
-  <div class="ch-text">
+<!-- ═══ CH 02 ═══ -->
+<div class="ch-panel panel" id="s2">
+  <div class="ch-num-col"><div class="ch-num">02</div></div>
+  <div class="ch-title-col">
     <div class="ch-title">Concept Graph</div>
-    <div class="ch-sub">FORCE-DIRECTED · CLICK NODE TO JUMP SOURCE · DRAG TO EXPLORE</div>
+    <div class="ch-sub">FORCE-DIRECTED · HOVER NODE = ISOLATE · CLICK = JUMP TO SOURCE</div>
   </div>
-  <div class="ch-img"><img src="images/0xEP002p.jpeg" alt=""></div>
+  <div class="ch-art-col"><img src="images/0xEP002p.jpeg" alt=""></div>
 </div>
 
-<!-- SECTION 2 -->
-<div class="s2">
+<!-- ═══ SECTION 2 ═══ -->
+<div class="s2-wrap panel">
   <div class="s2-bg"></div>
   <div class="s2-inner">
     <div id="graph-canvas"></div>
@@ -210,322 +288,195 @@ mark.hl:hover{filter:brightness(1.5)}
   </div>
 </div>
 
-<!-- CH 03 -->
-<div class="ch" id="s3">
-  <div class="ch-num">03</div>
-  <div class="ch-text">
+<!-- ═══ CH 03 ═══ -->
+<div class="ch-panel panel" id="s3">
+  <div class="ch-num-col"><div class="ch-num">03</div></div>
+  <div class="ch-title-col">
     <div class="ch-title">Intelligence Dossier</div>
     <div class="ch-sub">AI SYNTHESIS · FINDINGS · LEARNING PATH · VERDICT</div>
   </div>
-  <div class="ch-img"><img src="images/0xAC004p.jpeg" alt=""></div>
+  <div class="ch-art-col"><img src="images/0xAC004p.jpeg" alt=""></div>
 </div>
 
-<!-- SECTION 3 -->
-<div class="s3">
-  <div class="s3-collage" aria-hidden="true">
+<!-- ═══ SECTION 3 ═══ -->
+<div class="s3-spread panel">
+  <div class="s3-art-col">
     <img src="images/0xAC007p.jpeg" alt="">
-    <img src="images/0xBG005w.jpeg" alt="">
-    <img src="images/0xAC005p.jpeg" alt="">
-    <img src="images/0xAC002p.jpeg" alt="">
-    <img src="images/彡 by budkalon – twt.jpeg" alt="">
   </div>
-  <div class="s3-inner" id="s3-inner"></div>
+  <div class="s3-content" id="dos-content"></div>
 </div>
+
+</div><!-- end .page -->
 
 <!-- TOOLTIP -->
-<div class="tip" id="tip">
-  <div class="tip-cat" id="tip-cat"></div>
-  <div id="tip-reason"></div>
-</div>
-
+<div class="tip" id="tip"><div class="tip-cat" id="tip-cat"></div><div id="tip-reason"></div></div>
 <!-- NODE POPUP -->
-<div class="node-pop" id="node-pop">
-  <div class="np-type" id="np-type"></div>
-  <div class="np-name" id="np-name"></div>
-</div>
-
+<div class="node-pop" id="node-pop"><div class="np-type" id="np-type"></div><div class="np-name" id="np-name"></div></div>
 <!-- FOOTER -->
-<footer class="foot" id="foot">
-  <div class="foot-logo">LEXIS</div>
-</footer>
+<footer class="foot" id="foot"><div class="foot-logo">LEXIS</div></footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
-<script>/* LEXIS — main.js */
-const GRAPH_DATA   = {"nodes": [{"id": "fundamentals", "label": "Fundamentals", "type": "concept", "weight": 0.9, "summary": "Core foundational knowledge", "source_urls": []}, {"id": "iteration", "label": "Iteration", "type": "process", "weight": 0.8, "summary": "Feedback-driven improvement loop", "source_urls": []}, {"id": "over_engineering", "label": "Over-Engineering", "type": "risk", "weight": 0.7, "summary": "Premature complexity anti-pattern", "source_urls": []}, {"id": "structured_thinking", "label": "Structured Thinking", "type": "technique", "weight": 0.85, "summary": "Applying systematic frameworks", "source_urls": []}, {"id": "feedback_loops", "label": "Feedback Loops", "type": "process", "weight": 0.75, "summary": "Mechanisms for learning from output", "source_urls": []}], "edges": [{"source": "fundamentals", "target": "structured_thinking", "relation": "enables", "weight": 0.9}, {"source": "structured_thinking", "target": "iteration", "relation": "uses", "weight": 0.8}, {"source": "iteration", "target": "feedback_loops", "relation": "depends_on", "weight": 0.85}, {"source": "over_engineering", "target": "iteration", "relation": "contrasts", "weight": 0.7}]};
+<script>const GRAPH_DATA   = {"nodes": [{"id": "fundamentals", "label": "Fundamentals", "type": "concept", "weight": 0.9, "summary": "Core foundational knowledge", "source_urls": []}, {"id": "iteration", "label": "Iteration", "type": "process", "weight": 0.8, "summary": "Feedback-driven improvement loop", "source_urls": []}, {"id": "over_engineering", "label": "Over-Engineering", "type": "risk", "weight": 0.7, "summary": "Premature complexity anti-pattern", "source_urls": []}, {"id": "structured_thinking", "label": "Structured Thinking", "type": "technique", "weight": 0.85, "summary": "Applying systematic frameworks", "source_urls": []}, {"id": "feedback_loops", "label": "Feedback Loops", "type": "process", "weight": 0.75, "summary": "Mechanisms for learning from output", "source_urls": []}], "edges": [{"source": "fundamentals", "target": "structured_thinking", "relation": "enables", "weight": 0.9}, {"source": "structured_thinking", "target": "iteration", "relation": "uses", "weight": 0.8}, {"source": "iteration", "target": "feedback_loops", "relation": "depends_on", "weight": 0.85}, {"source": "over_engineering", "target": "iteration", "relation": "contrasts", "weight": 0.7}]};
 const DOSSIER_DATA = {"subject": "Structured Learning Systems", "classification": "OPEN SOURCE INTELLIGENCE", "threat_level": "LOW", "executive_summary": "The source material covers a systematic approach to learning and building within complex domains. Core themes include foundational knowledge, iterative improvement, and the dangers of premature optimization. The material advocates for feedback-driven processes over isolated design.", "key_findings": [{"finding": "Fundamentals must precede advanced concepts", "confidence": "HIGH", "implication": "Skipping foundations creates compounding knowledge debt"}, {"finding": "Feedback loops are the primary driver of system improvement", "confidence": "HIGH", "implication": "Without measurement, optimization is guesswork"}, {"finding": "Over-engineering is the most common early failure mode", "confidence": "MEDIUM", "implication": "Premature complexity is harder to undo than to prevent"}], "knowledge_gaps": ["No coverage of failure recovery strategies", "Lacks quantitative metrics for 'good enough'", "Does not address team dynamics"], "recommended_learning_path": [{"step": 1, "topic": "Core domain fundamentals", "reason": "Without this, nothing else lands"}, {"step": 2, "topic": "Feedback loop design", "reason": "Enables iteration to be productive rather than random"}, {"step": 3, "topic": "Complexity management patterns", "reason": "Prevents the over-engineering failure mode"}], "analogies": [{"concept": "Feedback loops", "analogy": "Like a thermostat — it doesn't know the perfect temperature, it just corrects when it drifts too far"}, {"concept": "Over-engineering", "analogy": "Like packing 10 suitcases for a weekend trip — the weight becomes the problem, not the destination"}], "threat_surface": null, "verdict": "Master the feedback loop first — everything else is commentary."};
-const STATS        = {"pages": 1, "highlights": 4, "concepts": 5, "relations": 4, "generated_at": "2026-07-15 11:03"};
+const STATS        = {"pages": 1, "highlights": 4, "concepts": 5, "relations": 4, "generated_at": "2026-07-15 11:24"};
 const SOURCES      = [{"url": "https://example.com", "title": "Example Source Page", "description": "A sample page for dry-run testing"}];
-
 const D = DOSSIER_DATA;
 
-// Stats
-document.getElementById('h-pages').textContent    = STATS.pages;
-document.getElementById('h-hl').textContent       = STATS.highlights;
-document.getElementById('h-nodes').textContent    = STATS.concepts;
-document.getElementById('h-edges').textContent    = STATS.relations;
+document.getElementById('h-pages').textContent = STATS.pages;
+document.getElementById('h-hl').textContent    = STATS.highlights;
+document.getElementById('h-nodes').textContent = STATS.concepts;
+document.getElementById('h-edges').textContent = STATS.relations;
 
-// Tooltip on highlights
-const tip  = document.getElementById('tip');
-const tipC = document.getElementById('tip-cat');
-const tipR = document.getElementById('tip-reason');
-document.querySelectorAll('mark.hl').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    tipC.textContent = (el.dataset.importance||'').toUpperCase() + ' · ' + (el.dataset.category||'');
-    tipR.textContent = el.dataset.reason || '';
-    const col = el.dataset.importance === 'critical' ? '#d63031' : el.dataset.importance === 'high' ? '#e6a817' : '#00cec9';
-    tip.style.borderLeftColor = col;
-    tipC.style.color = col;
-    tip.classList.add('on');
+// Speech bubble tooltip
+const tip=document.getElementById('tip'),tipC=document.getElementById('tip-cat'),tipR=document.getElementById('tip-reason');
+document.querySelectorAll('mark.hl').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    const imp=el.dataset.importance||'';
+    const col=imp==='critical'?'#e8192c':imp==='high'?'#c97d10':'#007a7a';
+    tipC.textContent=imp.toUpperCase()+(el.dataset.category?' · '+el.dataset.category:'');
+    tipC.style.color=col; tip.style.borderColor='#1a1517';
+    tipR.textContent=el.dataset.reason||''; tip.classList.add('on');
   });
-  el.addEventListener('mousemove', e => {
-    tip.style.left = (e.clientX + 18) + 'px';
-    tip.style.top  = (e.clientY - 10) + 'px';
-  });
-  el.addEventListener('mouseleave', () => tip.classList.remove('on'));
+  el.addEventListener('mousemove',e=>{tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-40)+'px'});
+  el.addEventListener('mouseleave',()=>tip.classList.remove('on'));
 });
 
-// Graph
-const TC = {
-  entity:    '#00cec9',
-  process:   '#e6a817',
-  tool:      '#00b894',
-  technique: '#a29bfe',
-  risk:      '#d63031',
-  outcome:   '#fd79a8',
-  concept:   '#74b9ff',
+// Graph — manga sketch aesthetic
+const TC={
+  entity:   {fill:'#00b4b4',border:'#007a7a'},
+  process:  {fill:'#f5a623',border:'#a06000'},
+  tool:     {fill:'#4caf50',border:'#1b5e20'},
+  technique:{fill:'#9c88e8',border:'#4527a0'},
+  risk:     {fill:'#ef5350',border:'#8b0000'},
+  outcome:  {fill:'#f48fb1',border:'#880e4f'},
+  concept:  {fill:'#64b5f6',border:'#0d47a1'},
 };
+const C=t=>(TC[t]||TC.concept);
 
-const cy = cytoscape({
-  container: document.getElementById('graph-canvas'),
-  elements: [
-    ...GRAPH_DATA.nodes.map(n => ({
-      data: {
-        id: n.id, label: n.label, type: n.type,
-        weight: n.weight || 0.5,
-        color: TC[n.type] || '#74b9ff'
-      }
-    })),
-    ...GRAPH_DATA.edges.map(e => ({
-      data: {
-        source: e.source, target: e.target,
-        label: e.relation, weight: e.weight || 0.5
-      }
-    }))
+const cy=cytoscape({
+  container:document.getElementById('graph-canvas'),
+  elements:[
+    ...GRAPH_DATA.nodes.map(n=>({data:{id:n.id,label:n.label,type:n.type,weight:n.weight||.5,fill:C(n.type).fill,bdr:C(n.type).border}})),
+    ...GRAPH_DATA.edges.map(e=>({data:{source:e.source,target:e.target,label:e.relation||'',weight:e.weight||.5,srcFill:C(GRAPH_DATA.nodes.find(n=>n.id===e.source)?.type).fill}}))
   ],
-  style: [
-    {
-      selector: 'node',
-      style: {
-        'shape': 'ellipse',
-        'width':  ele => 36 + (ele.data('weight') || 0.5) * 48,
-        'height': ele => 36 + (ele.data('weight') || 0.5) * 48,
-        'background-color': 'data(color)',
-        'background-opacity': 0.12,
-        'border-color': 'data(color)',
-        'border-width': 2.5,
-        'label': 'data(label)',
-        'color': '#ede8e0',
-        'font-size': 11,
-        'font-family': 'JetBrains Mono, monospace',
-        'font-weight': 500,
-        'text-valign': 'bottom',
-        'text-margin-y': 7,
-        'text-wrap': 'wrap',
-        'text-max-width': 100,
-        'shadow-blur': 24,
-        'shadow-color': 'data(color)',
-        'shadow-opacity': 0.7,
-        'shadow-offset-x': 0,
-        'shadow-offset-y': 0,
-        'transition-property': 'border-width, background-opacity, shadow-blur',
-        'transition-duration': '0.2s'
-      }
-    },
-    {
-      selector: 'node:hover',
-      style: {
-        'border-width': 4,
-        'background-opacity': 0.3,
-        'shadow-blur': 48,
-        'z-index': 9999
-      }
-    },
-    {
-      selector: 'node:selected',
-      style: {
-        'border-width': 4,
-        'background-opacity': 0.4,
-        'shadow-blur': 60,
-        'shadow-opacity': 1
-      }
-    },
-    {
-      selector: 'edge',
-      style: {
-        'width': ele => 1 + (ele.data('weight') || 0.5) * 2.5,
-        'line-color': 'rgba(237,232,224,0.08)',
-        'target-arrow-color': 'rgba(237,232,224,0.15)',
-        'target-arrow-shape': 'triangle',
-        'curve-style': 'bezier',
-        'label': 'data(label)',
-        'font-size': 8,
-        'font-family': 'JetBrains Mono, monospace',
-        'color': 'rgba(122,112,104,0.8)',
-        'text-rotation': 'autorotate',
-        'text-background-color': 'rgba(6,5,8,0.7)',
-        'text-background-opacity': 1,
-        'text-background-padding': '2px',
-        'opacity': 0.8
-      }
-    },
-    {
-      selector: 'edge:hover',
-      style: { 'line-color': 'rgba(237,232,224,0.3)', opacity: 1 }
-    }
+  style:[
+    {selector:'node',style:{
+      shape:'ellipse',
+      width: ele=>72+(ele.data('weight')||.5)*64,
+      height:ele=>72+(ele.data('weight')||.5)*64,
+      'background-fill':'radial-gradient',
+      'background-gradient-stop-colors':ele=>`rgba(255,255,255,.65) ${ele.data('fill')} ${ele.data('bdr')}`,
+      'background-gradient-stop-positions':'0% 50% 100%',
+      'background-gradient-direction':'to-bottom-right',
+      'border-color':'data(bdr)',
+      'border-width':3,
+      label:'data(label)',
+      'text-valign':'center','text-halign':'center',
+      color:'#fff',
+      'font-size':ele=>Math.max(9,13-ele.data('label').length*.38),
+      'font-family':'Inter,sans-serif','font-weight':'700',
+      'text-wrap':'wrap',
+      'text-max-width':ele=>(72+(ele.data('weight')||.5)*64)-14,
+      'text-shadow-blur':2,'text-shadow-color':'rgba(0,0,0,.45)','text-shadow-offset-x':0,'text-shadow-offset-y':1,
+      'shadow-blur':18,'shadow-color':'data(fill)','shadow-opacity':.45,'shadow-offset-x':0,'shadow-offset-y':5,
+      'transition-property':'width,height,shadow-blur','transition-duration':'180ms','z-index':1
+    }},
+    {selector:'node:hover',style:{
+      width:ele=>(72+(ele.data('weight')||.5)*64)*1.15,
+      height:ele=>(72+(ele.data('weight')||.5)*64)*1.15,
+      'shadow-blur':44,'shadow-opacity':.85,'z-index':999
+    }},
+    {selector:'node:selected',style:{'border-width':5,'border-color':'#fff','shadow-blur':55,'z-index':1000}},
+    {selector:'edge',style:{
+      width:ele=>3.5+(ele.data('weight')||.5)*4.5,
+      'line-color':'data(srcFill)','line-opacity':.45,
+      'target-arrow-color':'data(srcFill)','target-arrow-shape':'triangle','arrow-scale':1.1,
+      'curve-style':'bezier',label:'data(label)',
+      'font-size':9,'font-family':'Inter,sans-serif','font-weight':'600',color:'#fff',
+      'text-rotation':'autorotate','text-background-color':'rgba(26,21,23,.8)',
+      'text-background-opacity':1,'text-background-padding':'3px','text-background-shape':'roundrectangle',opacity:.65
+    }},
+    {selector:'edge:hover',style:{'line-opacity':.9,opacity:1,'z-index':999}},
+    {selector:'node.dim',style:{opacity:.1}},
+    {selector:'edge.dim',style:{opacity:.05}}
   ],
-  layout: {
-    name: 'cose',
-    animate: true,
-    animationDuration: 800,
-    padding: 80,
-    nodeRepulsion: 12000,
-    idealEdgeLength: 160,
-    gravity: 0.25,
-    numIter: 1500,
-    randomize: false
-  },
-  userZoomingEnabled: true,
-  userPanningEnabled: true,
-  boxSelectionEnabled: false
+  layout:{name:'cose',animate:true,animationDuration:1000,animationEasing:'ease-out-cubic',
+    padding:80,nodeRepulsion:16000,idealEdgeLength:190,gravity:.2,numIter:2200,
+    initialTemp:900,coolingFactor:.99,randomize:false,componentSpacing:90},
+  userZoomingEnabled:true,userPanningEnabled:true,boxSelectionEnabled:false,minZoom:.2,maxZoom:3
 });
 
-cy.one('layoutstop', () => { cy.resize(); cy.fit(undefined, 80); });
-setTimeout(() => { cy.resize(); cy.fit(undefined, 80); }, 1000);
+cy.one('layoutstop',()=>{cy.resize();cy.fit(undefined,80)});
+setTimeout(()=>{cy.resize();cy.fit(undefined,80)},1200);
 
-// Node hover popup
-const pop   = document.getElementById('node-pop');
-const popTy = document.getElementById('np-type');
-const popNm = document.getElementById('np-name');
-cy.on('mouseover', 'node', e => {
-  const d = e.target.data();
-  popTy.textContent = (d.type || 'concept').toUpperCase();
-  popTy.style.color = d.color;
-  popNm.textContent = d.label;
-  pop.classList.add('on');
+// Gentle float after layout
+cy.on('layoutstop',()=>{
+  setInterval(()=>{
+    if(cy.$(':grabbed').length)return;
+    cy.nodes().forEach(n=>{
+      const p=n.position();
+      n.animate({position:{x:p.x+(Math.random()-.5)*2.5,y:p.y+(Math.random()-.5)*2.5}},{duration:2000,easing:'ease-in-out-sine',queue:false});
+    });
+  },2500);
 });
-cy.on('mousemove', e => {
-  const pos = e.originalEvent;
-  if (pos) { pop.style.left = (pos.clientX + 20) + 'px'; pop.style.top = (pos.clientY - 20) + 'px'; }
-});
-cy.on('mouseout', 'node', () => pop.classList.remove('on'));
 
-// Node click → scroll to highlight
-cy.on('tap', 'node', e => {
-  const lbl = e.target.data('label').toLowerCase().slice(0, 7);
-  for (const m of document.querySelectorAll('mark.hl')) {
-    if (m.textContent.toLowerCase().includes(lbl)) {
-      m.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      const prev = m.style.outline;
-      m.style.outline = '2px solid ' + (e.target.data('color') || '#e6a817');
-      m.style.outlineOffset = '3px';
-      setTimeout(() => { m.style.outline = prev; m.style.outlineOffset = ''; }, 2500);
-      break;
+// Hover: dim others
+const pop=document.getElementById('node-pop'),popT=document.getElementById('np-type'),popN=document.getElementById('np-name');
+cy.on('mouseover','node',e=>{
+  const d=e.target.data();
+  popT.textContent=(d.type||'concept').toUpperCase();popT.style.color=d.fill;
+  popN.textContent=d.label; pop.classList.add('on');
+  cy.elements().addClass('dim'); e.target.removeClass('dim');
+  e.target.connectedEdges().removeClass('dim').connectedNodes().removeClass('dim');
+});
+cy.on('mouseout','node',()=>{pop.classList.remove('on');cy.elements().removeClass('dim')});
+cy.on('mousemove',e=>{const v=e.originalEvent;if(v){pop.style.left=(v.clientX+16)+'px';pop.style.top=(v.clientY-55)+'px'}});
+cy.on('tap','node',e=>{
+  const lbl=e.target.data('label').toLowerCase().slice(0,6);
+  for(const m of document.querySelectorAll('mark.hl')){
+    if(m.textContent.toLowerCase().includes(lbl)){
+      m.scrollIntoView({behavior:'smooth',block:'center'});
+      m.style.outline=`3px solid ${e.target.data('fill')}`;m.style.outlineOffset='2px';
+      setTimeout(()=>{m.style.outline='';m.style.outlineOffset=''},2500);break;
     }
   }
 });
 
-// Graph legend
-const legBar = document.getElementById('graph-bar');
-Object.entries(TC).forEach(([type, color]) => {
-  const d = document.createElement('div');
-  d.className = 'leg';
-  d.innerHTML = `<span class="leg-c" style="background:${color};box-shadow:0 0 6px ${color}80"></span>${type}`;
-  legBar.appendChild(d);
+// Legend
+const bar=document.getElementById('graph-bar');
+Object.entries(TC).forEach(([type,c])=>{
+  const d=document.createElement('div');d.className='leg';
+  d.innerHTML=`<span class="leg-c" style="background:${c.fill};border-color:${c.border}"></span>${type}`;
+  bar.appendChild(d);
 });
 
-// Dossier
-const findsHTML = D.key_findings.map(f => `
-  <div class="find-item">
-    <div class="find-txt">${f.finding}</div>
-    <div class="find-conf fc-${f.confidence}">◆ ${f.confidence}</div>
-    ${f.implication ? `<div class="find-impl">${f.implication}</div>` : ''}
-  </div>`).join('');
+// Dossier render
+const finds=D.key_findings.map(f=>`<div class="find-item"><div class="find-txt">${f.finding}</div><div class="find-conf fc-${f.confidence}">◆ ${f.confidence}</div>${f.implication?`<div class="find-impl">${f.implication}</div>`:''}</div>`).join('');
+const gaps=D.knowledge_gaps.map(g=>`<div class="gap-row">${g}</div>`).join('');
+const steps=D.recommended_learning_path.map(s=>`<div class="step-row"><span class="step-n">${String(s.step).padStart(2,'0')}</span><div><div class="step-top">${s.topic}</div><div class="step-why">${s.reason}</div></div></div>`).join('');
+const ans=D.analogies.map(a=>`<div class="an-row"><div class="an-con">${a.concept}</div><div class="an-txt">${a.analogy}</div></div>`).join('');
+const threat=D.threat_surface?`<div class="dos-card threat-panel full"><div class="threat-lbl">⚠ THREAT SURFACE</div><div class="threat-txt">${D.threat_surface}</div></div>`:'';
 
-const gapsHTML = D.knowledge_gaps.map(g =>
-  `<div class="gap-row">${g}</div>`).join('');
+document.getElementById('dos-content').innerHTML=`
+<div class="dos-class">${D.classification} // ${new Date().toISOString().slice(0,10)}</div>
+<div class="dos-subject">${D.subject.toUpperCase()}</div>
+<div class="dos-summary">${D.executive_summary}</div>
+<div class="dos-panels">
+  <div class="dos-card"><div class="card-hd">Key Findings</div>${finds||'<span style="opacity:.4;font-size:.8rem">None.</span>'}</div>
+  <div class="dos-card"><div class="card-hd">Knowledge Gaps</div>${gaps||'<span style="opacity:.4;font-size:.8rem">None.</span>'}</div>
+  <div class="dos-card"><div class="card-hd">Learning Path</div>${steps||'<span style="opacity:.4;font-size:.8rem">None.</span>'}</div>
+  <div class="dos-card"><div class="card-hd">Analogies</div>${ans||'<span style="opacity:.4;font-size:.8rem">None.</span>'}</div>
+  ${threat}
+  <div class="dos-card verdict-panel full"><div class="verdict-lbl">Verdict</div><div class="verdict-txt">${D.verdict}</div></div>
+</div>`;
 
-const stepsHTML = D.recommended_learning_path.map(s => `
-  <div class="step-row">
-    <span class="step-n">${String(s.step).padStart(2, '0')}</span>
-    <div><div class="step-top">${s.topic}</div><div class="step-why">${s.reason}</div></div>
-  </div>`).join('');
+// Footer
+const foot=document.getElementById('foot');
+SOURCES.forEach(s=>{const d=document.createElement('div');d.className='foot-src';d.innerHTML=`<a href="${s.url}" target="_blank" rel="noopener">${s.title||s.url}</a>`;foot.appendChild(d)});
 
-const anHTML = D.analogies.map(a => `
-  <div class="an-row">
-    <div class="an-con">${a.concept}</div>
-    <div class="an-txt">${a.analogy}</div>
-  </div>`).join('');
-
-const threatHTML = D.threat_surface ? `
-  <div class="dos-card threat-card full">
-    <div class="threat-lbl">⚠ THREAT SURFACE</div>
-    <div class="threat-txt">${D.threat_surface}</div>
-  </div>` : '';
-
-document.getElementById('s3-inner').innerHTML = `
-  <div class="s3-head">
-    <div class="s3-kicker">${D.classification} // ${new Date().toISOString().slice(0,10)}</div>
-    <div class="s3-subject">${D.subject.toUpperCase()}</div>
-    <div class="s3-summary">${D.executive_summary}</div>
-  </div>
-  <div class="dos-card">
-    <div class="card-title">KEY FINDINGS</div>
-    ${findsHTML || '<div style="color:#7a7068;font-size:.8rem">None extracted.</div>'}
-  </div>
-  <div class="dos-card">
-    <div class="card-title">KNOWLEDGE GAPS</div>
-    ${gapsHTML || '<div style="color:#7a7068;font-size:.8rem">None identified.</div>'}
-  </div>
-  <div class="dos-card">
-    <div class="card-title">LEARNING PATH</div>
-    ${stepsHTML || '<div style="color:#7a7068;font-size:.8rem">None generated.</div>'}
-  </div>
-  <div class="dos-card">
-    <div class="card-title">ANALOGIES</div>
-    ${anHTML || '<div style="color:#7a7068;font-size:.8rem">None generated.</div>'}
-  </div>
-  ${threatHTML}
-  <div class="dos-card verdict-card full">
-    <div class="verdict-lbl">VERDICT</div>
-    <div class="verdict-txt">${D.verdict}</div>
-  </div>`;
-
-// Footer sources
-const foot = document.getElementById('foot');
-SOURCES.forEach(s => {
-  const d = document.createElement('div');
-  d.className = 'foot-src';
-  d.innerHTML = `<a href="${s.url}" target="_blank" rel="noopener">${s.title || s.url}</a>`;
-  foot.appendChild(d);
-});
-
-// Nav active section tracking
-const sections = [
-  { el: document.getElementById('s1'), id: 's1' },
-  { el: document.getElementById('s2'), id: 's2' },
-  { el: document.getElementById('s3'), id: 's3' }
-];
-const navLinks = document.querySelectorAll('.nav-a');
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(en => {
-    if (en.isIntersecting) {
-      navLinks.forEach(l => l.classList.remove('on'));
-      const l = document.querySelector(`.nav-a[href="#${en.target.id}"]`);
-      if (l) l.classList.add('on');
-    }
-  });
-}, { threshold: 0.3 });
-sections.forEach(s => s.el && obs.observe(s.el));
+// Nav highlight
+const ios=new IntersectionObserver(entries=>entries.forEach(en=>{if(en.isIntersecting){document.querySelectorAll('.nav-a').forEach(l=>l.classList.remove('on'));const l=document.querySelector(`.nav-a[href="#${en.target.id}"]`);if(l)l.classList.add('on')}}),{threshold:.25});
+['s1','s2','s3'].forEach(id=>{const el=document.getElementById(id);if(el)ios.observe(el)});
 </script>
 </body>
 </html>
