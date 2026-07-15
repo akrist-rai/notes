@@ -237,7 +237,7 @@ const GRAPH_DATA    = {"nodes": [{"id": "fundamentals", "label": "Fundamentals",
 const DOSSIER_DATA  = {"subject": "Structured Learning Systems", "classification": "OPEN SOURCE INTELLIGENCE", "threat_level": "LOW", "executive_summary": "The source material covers a systematic approach to learning and building within complex domains. Core themes include foundational knowledge, iterative improvement, and the dangers of premature optimization. The material advocates for feedback-driven processes over isolated design.", "key_findings": [{"finding": "Fundamentals must precede advanced concepts", "confidence": "HIGH", "implication": "Skipping foundations creates compounding knowledge debt"}, {"finding": "Feedback loops are the primary driver of system improvement", "confidence": "HIGH", "implication": "Without measurement, optimization is guesswork"}, {"finding": "Over-engineering is the most common early failure mode", "confidence": "MEDIUM", "implication": "Premature complexity is harder to undo than to prevent"}], "knowledge_gaps": ["No coverage of failure recovery strategies", "Lacks quantitative metrics for 'good enough'", "Does not address team dynamics"], "recommended_learning_path": [{"step": 1, "topic": "Core domain fundamentals", "reason": "Without this, nothing else lands"}, {"step": 2, "topic": "Feedback loop design", "reason": "Enables iteration to be productive rather than random"}, {"step": 3, "topic": "Complexity management patterns", "reason": "Prevents the over-engineering failure mode"}], "analogies": [{"concept": "Feedback loops", "analogy": "Like a thermostat — it doesn't know the perfect temperature, it just corrects when it drifts too far"}, {"concept": "Over-engineering", "analogy": "Like packing 10 suitcases for a weekend trip — the weight becomes the problem, not the destination"}], "threat_surface": null, "verdict": "Master the feedback loop first — everything else is commentary."};
 const HIGHLIGHTS    = [{"text": "understanding the fundamentals is critical", "importance": "critical", "category": "concept", "reason": "Foundation before advanced topics", "source_url": "https://example.com", "page_title": "Example Source Page"}, {"text": "iteration beats perfection", "importance": "high", "category": "claim", "reason": "Feedback loops outperform isolated design", "source_url": "https://example.com", "page_title": "Example Source Page"}, {"text": "over-engineering early leads to brittle systems", "importance": "high", "category": "warning", "reason": "Key anti-pattern warning", "source_url": "https://example.com", "page_title": "Example Source Page"}, {"text": "structured thinking applied to messy domains", "importance": "medium", "category": "concept", "reason": "Meta-skill worth internalizing", "source_url": "https://example.com", "page_title": "Example Source Page"}];
 const SOURCES       = [{"url": "https://example.com", "title": "Example Source Page", "description": "A sample page for dry-run testing"}];
-const STATS         = {"pages": 1, "highlights": 4, "concepts": 5, "relations": 4, "generated_at": "2026-07-15 10:28"};
+const STATS         = {"pages": 1, "highlights": 4, "concepts": 5, "relations": 4, "generated_at": "2026-07-15 10:30"};
 
 // ── STATS ───────────────────────────────────────────────────
 document.getElementById('hero-title').textContent = DOSSIER_DATA.subject.toUpperCase();
@@ -354,8 +354,9 @@ const cy = cytoscape({
   userPanningEnabled: true,
   boxSelectionEnabled: false,
 });
-// Force a resize so Cytoscape measures the canvas after DOM settles
-requestAnimationFrame(() => { cy.resize(); cy.fit(undefined, 40); });
+// Force fit after cose layout finishes animating
+cy.one('layoutstop', () => { cy.resize(); cy.fit(undefined, 40); });
+setTimeout(() => { cy.resize(); cy.fit(undefined, 40); }, 800);
 
 // Node click → scroll section 1 to first occurrence
 cy.on('tap', 'node', evt => {
